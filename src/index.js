@@ -1,2 +1,2 @@
-import h from './app'
-export default h
+import App from './app'
+export default App

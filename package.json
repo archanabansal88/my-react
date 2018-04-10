@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./examples/test.js --exec babel-node -e js"
+    "start": "npm run buildApp && npm run buildExample",
+    "buildApp": "babel ./src/app.js --out-file ./examples/app.compiled.js",
+    "buildExample": "babel ./examples/test.js --out-file ./examples/test.compiled.js"
   },
   "author": "Archana Bansal",
   "license": "ISC",
@@ -13,13 +15,14 @@
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
-    "babel-preset-latest": "^6.24.1",
-    "nodemon": "^1.17.3"
+    "babel-preset-latest": "^6.24.1"
   },
   "babel": {
     "plugins": [
       "transform-react-jsx"
     ],
-    "presets": ["latest"]
+    "presets": [["latest",{
+      "es2015": true
+    }]]
   }
 }
