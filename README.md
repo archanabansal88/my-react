@@ -4,5 +4,6 @@
 
 * clone/download the repository
 * install node
-* run command "node start" 
+* run command "npm i" to install dependencies and devDependencies
+* run command "npm start" 
 

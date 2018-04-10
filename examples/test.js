@@ -1,4 +1,5 @@
 import h from '../src/index'
+// it actually tells Babel to transpile that jsx but instead of React.createElement, put h’.
 /** @jsx h */
 
 const a = (
