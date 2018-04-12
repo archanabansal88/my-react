@@ -6,4 +6,5 @@
 * install node
 * run command "npm i" to install dependencies and devDependencies
 * run command "npm start" 
+* open index.html in the browser
 
