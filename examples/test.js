@@ -27,6 +27,7 @@ $reload.addEventListener('click', () => {
 })
 */
 
+/*
 const f = (
   <ul style='list-style: none;'>
     <li className='item'>item 1</li>
@@ -43,6 +44,40 @@ const g = (
     <li style='background: red;'>
       <input type='checkbox' checked={false} />
       <input type='text' disabled />
+    </li>
+  </ul>
+)
+
+const $root = document.getElementById('root')
+const $reload = document.getElementById('reload')
+
+App.updateElement($root, f)
+$reload.addEventListener('click', () => {
+  App.updateElement($root, g, f)
+})
+
+*/
+
+function log (e) {
+  console.log(e.target.value)
+}
+
+const f = (
+  <ul style='list-style: none;'>
+    <li className='item' onClick={() => alert('hi!')}>item 1</li>
+    <li className='item'>
+      <input type='checkbox' checked />
+      <input type='text' onInput={log} />
+    </li>
+  </ul>
+)
+
+const g = (
+  <ul style='list-style: none;'>
+    <li className='item item2' onClick={() => alert('hi!')}>item 1</li>
+    <li style='background: red;'>
+      <input type='checkbox' checked={false} />
+      <input type='text' onInput={log} />
     </li>
   </ul>
 )

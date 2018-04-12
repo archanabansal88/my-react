@@ -1,19 +1,20 @@
-function h (type, props, ...children) {
-  return { type, props, children }
+const h = (type, props, ...children) => {
+  return { type, props: props || {}, children }
 }
 
-function createElement (node) {
+const createElement = (node) => {
   if (typeof node === 'string') {
     return document.createTextNode(node)
   }
   const $el = document.createElement(node.type)
   setProps($el, node.props)
+  addEventListener($el, node.props)
   node.children.map(createElement).forEach($el.appendChild.bind($el))
   return $el
 }
 
 // set boolean DOM attributes (e.g. checked, disabled) with boolean value
-function setBooleanProp ($target, name, value) {
+const setBooleanProp = ($target, name, value) => {
   if (value) {
     $target.setAttribute(name, value)
     $target[name] = true
@@ -22,13 +23,15 @@ function setBooleanProp ($target, name, value) {
   }
 }
 
-function removeBooleanProp ($target, name) {
+const removeBooleanProp = ($target, name) => {
   $target.removeAttribute(name)
   $target[name] = false
 }
 
-function setProp ($target, name, value) {
-  if (name === 'className') {
+const setProp = ($target, name, value) => {
+  if (isCustomProp(name)) {
+
+  } else if (name === 'className') {
     $target.setAttribute('class', value)
   } else if (typeof value === 'boolean') {
     setBooleanProp($target, name, value)
@@ -37,8 +40,10 @@ function setProp ($target, name, value) {
   }
 }
 
-function removeProp ($target, name, value) {
-  if (name === 'className') {
+const removeProp = ($target, name, value) => {
+  if (isCustomProp(name)) {
+
+  } else if (name === 'className') {
     $target.removeAttribute('class')
   } else if (typeof value === 'boolean') {
     removeBooleanProp($target, name)
@@ -46,13 +51,35 @@ function removeProp ($target, name, value) {
     $target.removeAttribute(name)
   }
 }
-function setProps ($target, props) {
+const setProps = ($target, props) => {
   Object.keys(props).forEach((name) => {
     setProp($target, name, props[name])
   })
 }
 
-function updateProp ($target, name, newVal, oldVal) {
+const isEventProp = (name) => {
+  return /^on/.test(name)
+}
+
+const extractEventName = (name) => {
+  return name.slice(2).toLowerCase()
+}
+
+const isCustomProp = (name) => {
+  return isEventProp(name)
+}
+
+const addEventListener = ($target, props) => {
+  Object.keys(props).forEach(name => {
+    if (isEventProp(name)) {
+      $target.addEventListener(
+        extractEventName(name), props[name]
+      )
+    }
+  })
+}
+
+const updateProp = ($target, name, newVal, oldVal) => {
   if (!newVal) { // if there is no such property value in new node then remove that prop
     removeProp($target, name, oldVal)
   } else if (!oldVal || newVal !== oldVal) { // if there is no such property value in old node || newNode property value not equal to oldNode property value then set props with new Value
@@ -60,20 +87,20 @@ function updateProp ($target, name, newVal, oldVal) {
   }
 }
 
-function updateProps ($target, newProps, oldProps = {}) {
+const updateProps = ($target, newProps, oldProps = {}) => {
   const props = Object.assign({}, newProps, oldProps)
   Object.keys(props).forEach((name) => {
     updateProp($target, name, newProps[name], oldProps[name])
   })
 }
 
-function changed (node1, node2) {
+const changed = (node1, node2) => {
   return typeof node1 !== typeof node2 ||
           (typeof node1 === 'string' && node1 !== node2) ||
           node1.type !== node2.type
 }
 
-function updateElement ($parent, newNode, oldNode, index = 0) {
+const updateElement = ($parent, newNode, oldNode, index = 0) => {
   // if there is no oldNode but there is a newNode, adding the new node to the parent
   if (!oldNode) {
     $parent.appendChild(
