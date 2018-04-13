@@ -1,6 +1,4 @@
-// import App from '../src/index'
-
-// it actually tells Babel to transpile that jsx but instead of React.createElement, put App.h’.
+// it tells Babel to transpile that jsx but instead of React.createElement, put App.h’.
 /** @jsx App.h */
 
 /*

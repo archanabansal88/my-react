@@ -51,6 +51,7 @@ const removeProp = ($target, name, value) => {
     $target.removeAttribute(name)
   }
 }
+
 const setProps = ($target, props) => {
   Object.keys(props).forEach((name) => {
     setProp($target, name, props[name])
@@ -130,4 +131,3 @@ const App = {
   updateElement,
   h
 }
-// export default App
