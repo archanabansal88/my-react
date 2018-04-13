@@ -3,6 +3,17 @@
 
 /*
 const a = (
+  <ul class='list'>
+    <li>item 1</li>
+    <li>item 2</li>
+  </ul>
+)
+
+console.log(a)
+*/
+
+/*
+const a = (
   <ul>
     <li>item 1</li>
     <li>item 2</li>
@@ -56,6 +67,7 @@ $reload.addEventListener('click', () => {
 
 */
 
+/*
 function log (e) {
   console.log(e.target.value)
 }
@@ -87,3 +99,13 @@ App.updateElement($root, f)
 $reload.addEventListener('click', () => {
   App.updateElement($root, g, f)
 })
+*/
+
+/*
+const w = () =>
+  <div>Welcome Home!</div>
+
+const r = (w)
+
+App.createElement(r)
+*/

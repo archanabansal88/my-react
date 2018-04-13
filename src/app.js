@@ -6,6 +6,10 @@ const createElement = (node) => {
   if (typeof node === 'string') {
     return document.createTextNode(node)
   }
+  if (typeof (node) === 'function') {
+    console.log(node())
+    return
+  }
   const $el = document.createElement(node.type)
   setProps($el, node.props)
   addEventListener($el, node.props)
@@ -128,6 +132,7 @@ const updateElement = ($parent, newNode, oldNode, index = 0) => {
 }
 
 const App = {
+  createElement,
   updateElement,
   h
 }
